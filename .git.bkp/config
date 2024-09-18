@@ -1,0 +1,13 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = true
+	logallrefupdates = true
+	ignorecase = true
+	precomposeunicode = true
+	hooksPath = .husky/_
+[branch "main"]
+	vscode-merge-base = origin/main
+[remote "origin"]
+	url = git@github.com:dhruvdangi/creagh-frontend.git
+	fetch = +refs/heads/*:refs/remotes/origin/*

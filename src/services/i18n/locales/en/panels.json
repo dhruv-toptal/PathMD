@@ -1,0 +1,25 @@
+{
+  "title": "Panels",
+  "add-panel": "Add Panel",
+  "name": {
+    "label": "Name",
+    "validation": {
+      "required": "Name is required"
+    }
+  },
+  "table": {
+    "column1": "ID",
+    "column2": "Description",
+    "column3": "Scheduled Date",
+    "column4": "Bed",
+    "column5": "Status",
+    "check_process": "Check Process"
+  },
+  "create": "Create",
+  "customer-name": "Customer Name",
+  "priority": "Priority",
+  "completion-percentage": "Completion Percentage",
+  "start-date": "Start Date",
+  "due-date": "Due Date",
+  "my-tasks": "My Tasks"
+}

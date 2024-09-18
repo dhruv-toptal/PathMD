@@ -1,0 +1,26 @@
+{
+  "client": "Client",
+  "start-date": "Start Date",
+  "due-date": "Due Date",
+  "new-project": "New Project",
+  "name": {
+    "label": "Name",
+    "validation": {
+      "required": "Name is required"
+    }
+  },
+  "table": {
+    "column1": "ID",
+    "column2": "Name",
+    "column3": "Scheduled Date",
+    "column4": "Type",
+    "column5": "Pouring Days",
+    "column6": "Material",
+    "column7": "Material Volume"
+  },
+  "create": "Create",
+  "customer-name": "Customer Name",
+  "priority": "Priority",
+  "completion-percentage": "Completion Percentage",
+  "success": "Success"
+}

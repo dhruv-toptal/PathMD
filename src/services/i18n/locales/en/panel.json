@@ -1,0 +1,41 @@
+{
+  "title": "Panel",
+  "add-panel": "Add Panel",
+  "count": {
+    "label": "Number Of Pours",
+    "validation": {
+      "required": "Number of pours"
+    }
+  },
+  "view": "View",
+  "my-tasks": "My Tasks",
+  "status-process": "Status Process",
+  "submit-to-qc": "Submit to QC",
+  "id": "ID",
+  "type": "Type",
+  "weight": "Weight",
+  "length": "Length",
+  "depth": "Depth",
+  "width": "Width",
+  "pouring-days": "Pouring Days",
+  "phase": "Building Phase",
+  "finishing-time": "Due Date",
+  "material": "Material",
+  "tonnage": "Material Volume",
+  "table": {
+    "column1": "ID",
+    "column2": "Name",
+    "column3": "Scheduled Date",
+    "column4": "Bed",
+    "column5": "Status"
+  },
+  "create": "Create",
+  "customer-name": "Customer Name",
+  "priority": "Priority",
+  "completion-percentage": "Completion Percentage",
+  "start-date": "Start Date",
+  "due-date": "Due Date",
+  "new-panel-name": "Panel Name",
+  "submit": "Submit",
+  "success": "Success"
+}

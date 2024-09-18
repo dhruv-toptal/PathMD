@@ -1,0 +1,34 @@
+{
+  "title": "Projects",
+  "description": "Welcome to the projects.",
+  "new-project": "New Project",
+  "view": "View",
+  "name": {
+    "label": "Name",
+    "validation": {
+      "required": "Name is required"
+    }
+  },
+  "project-id": {
+    "label": "ID",
+    "validation": {
+      "required": "ID is required"
+    }
+  },
+  "table": {
+    "column1": "S.No.",
+    "column2": "ID",
+    "column3": "Name",
+    "column4": "Customer",
+    "column5": "Priority",
+    "column6": "Status",
+    "column7": "Start Date",
+    "column8": "Due Date"
+  },
+  "create": "Create",
+  "customer-name": "Customer Name",
+  "priority": "Priority",
+  "completion-percentage": "Completion Percentage",
+  "start-date": "Start Date",
+  "due-date": "Due Date"
+}

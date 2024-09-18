@@ -1,0 +1,23 @@
+export type Panel = {
+  id: number | string;
+  panelId?: string | null | undefined;
+  description?: string | null | undefined;
+  progressData?: string | null | undefined;
+  status?: string | null | undefined;
+  type?: string | null | undefined;
+  count?: number | null | undefined;
+  weight?: number | null | undefined;
+  length?: number | null | undefined;
+  depth?: number | null | undefined;
+  width?: number | null | undefined;
+  pouringDays?: number | null | undefined;
+  phase?: string | null | undefined;
+  material?: string | null | undefined;
+  tonnage?: number | null | undefined;
+  finishingTime?: Date | null | undefined;
+  bedSchedules?: any[] | null | undefined;
+  projectId?: number | null | undefined;
+  startDate?: Date | null | undefined;
+  dueDate?: Date | null | undefined;
+  scheduledDate?: Date | null | undefined;
+};
