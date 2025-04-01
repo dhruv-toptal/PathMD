@@ -21,10 +21,22 @@ export function useAuthLoginService() {
 
   return useCallback(
     (data: AuthLoginRequest) => {
-      return fetchBase(`${API_URL}/v1/auth/email/login`, {
+      return fetchBase(`${API_URL}/api/v1/auth/loginn`, {
         method: "POST",
+        headers: {
+          "st-auth-mode": "true",
+        },
         body: JSON.stringify(data),
-      }).then(wrapperFetchJsonResponse<AuthLoginResponse>);
+      }).then(async (res) => {
+        return {
+          headers: {
+            "st-access-token": res.headers.get("st-access-token"),
+            "st-refresh-token": res.headers.get("st-refresh-token"),
+            "Front-Token": res.headers.get("Front-Token"),
+          },
+          response: await wrapperFetchJsonResponse<AuthLoginResponse>(res),
+        };
+      });
     },
     [fetchBase]
   );

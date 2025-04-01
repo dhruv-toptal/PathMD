@@ -18,8 +18,9 @@ import {
 } from "./auth-context";
 import Cookies from "js-cookie";
 import useFetchBase from "@/services/api/use-fetch-base";
-import { AUTH_LOGOUT_URL, AUTH_ME_URL } from "@/services/api/config";
+import { API_URL, AUTH_LOGOUT_URL, AUTH_ME_URL } from "@/services/api/config";
 import HTTP_CODES_ENUM from "../api/types/http-codes";
+import useFetch from "../api/use-fetch";
 
 function AuthProvider(props: PropsWithChildren<{}>) {
   const AUTH_TOKEN_KEY = "auth-token-data";
@@ -85,31 +86,46 @@ function AuthProvider(props: PropsWithChildren<{}>) {
     ) as TokensInfo;
 
     setTokensInfoRef(tokens);
-
     try {
       if (tokens?.token) {
-        const response = await fetchBase(
-          AUTH_ME_URL,
-          {
-            method: "GET",
+        const requestUrl = new URL(`${API_URL}/graphql`);
+
+        const graphqlQuery = {
+          query: `
+            query GetUser($id: String) {
+              user(id: $id) {
+                id
+                firstName
+                lastName
+                fullName
+                email
+                patientId
+              }
+            }
+          `,
+          variables: {
+            id: "c0be0fb1-9add-40f5-a9ca-bcdfeff6dba9",
           },
-          {
-            token: tokens.token,
-            refreshToken: tokens.refreshToken,
-            tokenExpires: tokens.tokenExpires,
-            setTokensInfo,
-          }
-        );
+        };
 
-        if (response.status === HTTP_CODES_ENUM.UNAUTHORIZED) {
-          logOut();
-          return;
+        try {
+          fetchBase(requestUrl, {
+            method: "POST",
+            body: JSON.stringify(graphqlQuery),
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${tokens?.token}`,
+            },
+          }).then(async (res) => {
+            const data = await res.json();
+            setUser(data.data?.user);
+          });
+        } catch (err) {
+          console.log({ err });
         }
-
-        const data = await response.json();
-        setUser(data);
       }
     } catch {
+      console.log("logging out");
       logOut();
     } finally {
       setIsLoaded(true);

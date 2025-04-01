@@ -20,6 +20,7 @@ function Profile() {
   const { user } = useAuth();
   const { logOut } = useAuthActions();
   const { t } = useTranslation("profile");
+  console.log("asdaknsak");
   return (
     <Container maxWidth="xl" sx={{ height: "100vh" }}>
       <Grid

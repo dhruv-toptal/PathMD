@@ -8,7 +8,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { t } = await getServerTranslation(params.language, "profile");
-
+  console.log("asdklasdlkasd");
   return {
     title: t("title"),
   };

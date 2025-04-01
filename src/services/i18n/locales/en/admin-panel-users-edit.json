@@ -32,15 +32,6 @@
       "label": "Role",
       "validation": {
         "required": "Last Name is required"
-      },
-      "options": {
-        "1": "Admin",
-        "2": "User",
-        "3": "Rebar User",
-        "4": "Mould User",
-        "5": "Panel User",
-        "6": "Demould User",
-        "7": "Finishing User"
       }
     },
     "password": {

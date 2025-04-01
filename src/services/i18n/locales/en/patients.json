@@ -1,0 +1,30 @@
+{
+  "heading": "Welcome, {{name}}!",
+  "description": "You have {{number}} samples to review.",
+  "new-project": "New Project",
+  "review": "Review",
+  "name": {
+    "label": "Name",
+    "validation": {
+      "required": "Name is required"
+    }
+  },
+  "project-id": {
+    "label": "ID",
+    "validation": {
+      "required": "ID is required"
+    }
+  },
+  "table": {
+    "column1": "Patient Name",
+    "column2": "Patient ID",
+    "column3": "Reviewed & Report Generated",
+    "column4": ""
+  },
+  "create": "Create",
+  "customer-name": "Customer Name",
+  "priority": "Priority",
+  "completion-percentage": "Completion Percentage",
+  "start-date": "Start Date",
+  "due-date": "Due Date"
+}

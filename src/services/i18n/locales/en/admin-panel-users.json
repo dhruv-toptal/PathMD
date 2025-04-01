@@ -23,19 +23,6 @@
       "filter": "Filter",
       "apply": "Apply"
     },
-    "inputs": {
-      "role": {
-        "label": "Role",
-        "options": {
-          "1": "Admin",
-          "2": "User",
-          "3": "Rebar user",
-          "4": "Mould user",
-          "5": "Panel user",
-          "6": "Demould user",
-          "7": "Finishing user"
-        }
-      }
-    }
+    "inputs": {}
   }
 }

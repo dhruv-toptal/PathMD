@@ -1,6 +1,7 @@
 {
   "title": "Sign In",
   "description": "Sign in or create an account",
+  "sideText": "Unlock the\n power of AI",
   "actions": {
     "submit": "Sign In",
     "newUser": "New User? ",

@@ -1,6 +1,8 @@
 {
   "app-name": "APP",
   "loading": "Loading ...",
+  "histologyFrom": "Histology from:",
+  "back": "Back",
   "navigation": {
     "home": "Home",
     "signIn": "Sign In",

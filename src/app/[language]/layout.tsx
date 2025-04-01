@@ -21,7 +21,9 @@ import GoogleAuthProvider from "@/services/social-auth/google/google-auth-provid
 import FacebookAuthProvider from "@/services/social-auth/facebook/facebook-auth-provider";
 import ConfirmDialogProvider from "@/components/confirm-dialog/confirm-dialog-provider";
 import InitColorSchemeScript from "@/components/theme/init-color-scheme-script";
-import PermanentDrawerLeft from "@/components/permanent-drawer-left";
+import PermanentDrawerTop from "@/components/permanent-drawer-top";
+import { Box } from "@mui/material";
+import { ApolloWrapper } from "./ApolloWrapper";
 
 type Props = {
   params: { language: string };
@@ -61,10 +63,17 @@ export default function RootLayout({
                     <GoogleAuthProvider>
                       <FacebookAuthProvider>
                         <LeavePageProvider>
-                          <div style={{ display: "flex", flex: 1 }}>
-                            <PermanentDrawerLeft />
-                            {children}
-                          </div>
+                          <ApolloWrapper>
+                            <Box
+                              style={{
+                                height: "100vh",
+                                width: "100%",
+                              }}
+                            >
+                              <PermanentDrawerTop />
+                              {children}
+                            </Box>
+                          </ApolloWrapper>
                         </LeavePageProvider>
                       </FacebookAuthProvider>
                     </GoogleAuthProvider>

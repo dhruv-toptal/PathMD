@@ -27,11 +27,11 @@ function ThemeProvider(props: PropsWithChildren<{}>) {
           light: {
             palette: {
               background: { default: "#FFF", paper: "#FFF" },
-              primary: { main: "#003087" },
-              secondary: { main: "#008C95" },
+              primary: { main: "#0E69FF" },
+              secondary: { main: "#111213" },
               text: {
-                primary: "#003087",
-                secondary: "#003087",
+                primary: "#111213",
+                secondary: "#111213",
               },
               activeStep: {
                 main: "#FFF3E0",

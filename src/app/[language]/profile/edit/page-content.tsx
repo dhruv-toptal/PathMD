@@ -21,7 +21,7 @@ import Box from "@mui/material/Box";
 import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
 import { useTranslation } from "@/services/i18n/client";
 import { UserProviderEnum } from "@/services/api/types/user";
-import SegmentedButtons from "../../project/components/SegmentedButtons";
+import SegmentedButtons from "../../patient/components/SegmentedButtons";
 
 type EditProfileBasicInfoFormData = {
   firstName: string;
@@ -488,20 +488,7 @@ function EditProfile() {
       }}
     >
       <Box>
-        <SegmentedButtons
-          title="Section"
-          buttons={[
-            { label: "Profile", value: "profile" },
-            { label: "Security", value: "security" },
-          ]}
-          selectedButtonIndex={sectionIndex}
-          onChange={(index) => {
-            setSectionIndex(index);
-          }}
-        />
-        {sectionIndex === 0 && <FormBasicInfo />}
-        {/* <FormChangeEmailWrapper /> */}
-        {sectionIndex === 1 && <FormChangePasswordWrapper />}
+        <FormBasicInfo />
       </Box>
     </Box>
   );

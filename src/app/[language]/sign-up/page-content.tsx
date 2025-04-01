@@ -10,7 +10,7 @@ import {
 import useAuthActions from "@/services/auth/use-auth-actions";
 import useAuthTokens from "@/services/auth/use-auth-tokens";
 import BackgroundImage from "@/assets/login-bg.svg";
-import Grid from "@mui/material/Grid";
+import PathMDIcon from "@/assets/pathmd.png";
 import Typography from "@mui/material/Typography";
 import FormTextInput from "@/components/form/text-input/form-text-input";
 import FormCheckboxInput from "@/components/form/checkbox/form-checkbox";
@@ -149,12 +149,11 @@ function Form() {
       setUser(dataSignIn.user);
     }
   });
-
   return (
     <FormProvider {...methods}>
       <Box
         sx={{
-          background: theme.palette.primary.main,
+          background: theme.palette.background.default,
           height: "100vh",
           width: "100%",
           display: "flex",
@@ -162,21 +161,27 @@ function Form() {
           margin: 0,
         }}
       >
-        {/* Left Side - Image Section */}
-        <Box sx={{ width: "50%", height: "100%", position: "relative" }}>
-          <Image
-            src={BackgroundImage}
-            alt="signup background"
-            layout="fill"
-            objectFit="cover"
-            style={{ background: "red" }}
-          />
-        </Box>
-
-        {/* Right Side - Sign Up Form */}
         <Box
           sx={{
-            width: "50%",
+            width: 700,
+            height: "100%",
+            display: "flex",
+            backgroundColor: theme.palette.primary.main,
+            padding: 6,
+          }}
+        >
+          <Typography
+            variant="h4"
+            fontWeight={600}
+            color={"white"}
+            sx={{ whiteSpace: "pre-line" }}
+          >
+            {t("sign-in:sideText", { 1: <br /> })}
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            width: "100%",
             height: "100%",
             display: "flex",
             justifyContent: "center",
@@ -191,8 +196,7 @@ function Form() {
               alignItems={"center"}
               justifyContent={"center"}
               sx={{
-                background: theme.palette.primary.main,
-                padding: 3,
+                background: theme.palette.background.default,
                 height: "100%",
                 width: "100%",
               }}
@@ -203,128 +207,138 @@ function Form() {
                 flexDirection={"column"}
                 alignItems={"center"}
               >
-                <Typography variant="h4" fontWeight={600} color={"white"}>
+                <Image
+                  src={PathMDIcon}
+                  alt="PathMD"
+                  style={{
+                    width: 194.4,
+                    height: 45.9,
+                    marginLeft: theme.spacing(),
+                    marginRight: theme.spacing(),
+                    marginBottom: theme.spacing(),
+                  }}
+                  objectFit="contain"
+                />
+                <Typography
+                  variant="h5"
+                  fontWeight={600}
+                  sx={{ marginTop: theme.spacing() }}
+                >
                   {t("sign-up:title")}
                 </Typography>
-                <Typography variant="h6" color={"white"} sx={{ mb: 2 }}>
-                  {t("sign-up:description")}
-                </Typography>
               </Box>
-
               <Box sx={{ width: 500, mb: 1 }}>
-                <FormTextInput<SignUpFormData>
-                  name="firstName"
-                  label={t("sign-up:inputs.firstName.label")}
-                  type="text"
-                  testId="first-name"
-                  autoFocus
-                  variant="filled"
-                  sx={{
-                    input: {
+                <Box sx={{ width: 500, mb: 1 }}>
+                  <FormTextInput<SignUpFormData>
+                    name="firstName"
+                    label={t("sign-up:inputs.firstName.label")}
+                    type="text"
+                    testId="first-name"
+                    autoFocus
+                    variant="filled"
+                    sx={{
+                      input: {
+                        background: "white",
+                      },
+                    }}
+                  />
+                </Box>
+
+                <Box sx={{ width: 500, mb: 1 }}>
+                  <FormTextInput<SignUpFormData>
+                    name="lastName"
+                    label={t("sign-up:inputs.lastName.label")}
+                    type="text"
+                    testId="last-name"
+                    variant="filled"
+                    sx={{
+                      input: {
+                        background: "white",
+                      },
+                    }}
+                  />
+                </Box>
+
+                <Box sx={{ width: 500, mb: 1 }}>
+                  <FormTextInput<SignUpFormData>
+                    name="email"
+                    label={t("sign-up:inputs.email.label")}
+                    type="email"
+                    testId="email"
+                    variant="filled"
+                    sx={{
+                      input: {
+                        background: "white",
+                      },
+                    }}
+                  />
+                </Box>
+
+                <Box sx={{ width: 500, mb: 2 }}>
+                  <FormTextInput<SignUpFormData>
+                    name="password"
+                    label={t("sign-up:inputs.password.label")}
+                    type="password"
+                    testId="password"
+                    variant="filled"
+                    sx={{
                       background: "white",
-                    },
-                  }}
-                />
-              </Box>
+                      input: {
+                        background: "white",
+                      },
+                    }}
+                  />
+                </Box>
 
-              <Box sx={{ width: 500, mb: 1 }}>
-                <FormTextInput<SignUpFormData>
-                  name="lastName"
-                  label={t("sign-up:inputs.lastName.label")}
-                  type="text"
-                  testId="last-name"
-                  variant="filled"
-                  sx={{
-                    input: {
-                      background: "white",
-                    },
-                  }}
-                />
+                <Box sx={{ width: 500, mb: 2 }}>
+                  <FormCheckboxInput
+                    name="policy"
+                    label=""
+                    testId="privacy"
+                    options={policyOptions}
+                    keyValue="id"
+                    keyExtractor={(option) => option.id.toString()}
+                    renderOption={(option) => (
+                      <span style={{}}>
+                        {option.name}{" "}
+                        <LinkItem
+                          href="/privacy-policy"
+                          target="_blank"
+                          sx={{}}
+                        >
+                          {t("sign-up:inputs.policy.label")}
+                        </LinkItem>
+                      </span>
+                    )}
+                  />
+                </Box>
               </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <FormActions />
 
-              <Box sx={{ width: 500, mb: 1 }}>
-                <FormTextInput<SignUpFormData>
-                  name="email"
-                  label={t("sign-up:inputs.email.label")}
-                  type="email"
-                  testId="email"
-                  variant="filled"
-                  sx={{
-                    input: {
-                      background: "white",
-                    },
-                  }}
-                />
-              </Box>
-
-              <Box sx={{ width: 500, mb: 2 }}>
-                <FormTextInput<SignUpFormData>
-                  name="password"
-                  label={t("sign-up:inputs.password.label")}
-                  type="password"
-                  testId="password"
-                  variant="filled"
-                  sx={{
-                    background: "white",
-                    input: {
-                      background: "white",
-                    },
-                  }}
-                />
-              </Box>
-
-              <Box sx={{ width: 500, mb: 2 }}>
-                <FormCheckboxInput
-                  name="policy"
-                  label=""
-                  testId="privacy"
-                  options={policyOptions}
-                  keyValue="id"
-                  sx={{
-                    color: "white",
-                    "&.Mui-checked": {
-                      color: "white",
-                    },
-                  }}
-                  keyExtractor={(option) => option.id.toString()}
-                  renderOption={(option) => (
-                    <span style={{ color: "white" }}>
-                      {option.name}{" "}
-                      <LinkItem
-                        href="/privacy-policy"
-                        target="_blank"
-                        sx={{ color: "white" }}
-                      >
-                        {t("sign-up:inputs.policy.label")}
-                      </LinkItem>
-                    </span>
-                  )}
-                />
-              </Box>
-
-              <FormActions />
-
-              <Box ml={1} component="span" sx={{ display: "flex" }}>
-                <Typography
-                  component={"span"}
-                  sx={{ color: "white", mt: 3, mr: 1 }}
-                >
-                  {t("sign-up:actions.accountAlreadyExists")}
-                </Typography>
-                <LinkItem
-                  href="/sign-in"
-                  data-testid="login"
-                  sx={{
-                    color: "white",
-                    textDecoration: "underline",
-                    fontWeight: 600,
-                    mt: 3,
-                  }}
-                >
-                  {t("sign-up:actions.signIn")}
-                </LinkItem>
-              </Box>
-              {/*
+                <Box ml={1} component="span" sx={{ display: "flex" }}>
+                  <Typography component={"span"} sx={{ mt: 3, mr: 1 }}>
+                    {t("sign-up:actions.accountAlreadyExists")}
+                  </Typography>
+                  <LinkItem
+                    href="/sign-in"
+                    data-testid="login"
+                    sx={{
+                      textDecoration: "underline",
+                      fontWeight: 600,
+                      mt: 3,
+                    }}
+                  >
+                    {t("sign-up:actions.signIn")}
+                  </LinkItem>
+                </Box>
+                {/*
               {[isGoogleAuthEnabled, isFacebookAuthEnabled].some(Boolean) && (
                 <Box>
                   <Divider sx={{ mb: 2 }}>
@@ -334,6 +348,7 @@ function Form() {
                   <SocialAuth />
                 </Box>
               )} */}
+              </Box>
             </Box>
           </form>
         </Box>

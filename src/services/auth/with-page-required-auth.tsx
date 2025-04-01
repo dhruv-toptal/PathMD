@@ -31,18 +31,13 @@ function withPageRequiredAuth(
 
     useEffect(() => {
       const check = () => {
-        if (
-          (user &&
-            user?.role?.id &&
-            optionRoles.includes(Number(user?.role.id))) ||
-          !isLoaded
-        )
-          return;
+        if (user || !isLoaded) return;
 
+        console.log({ user, isLoaded });
         const currentLocation = window.location.toString();
         const returnToPath =
           currentLocation.replace(new URL(currentLocation).origin, "") ||
-          `/${language}/projects`;
+          `/${language}/patients`;
         const params = new URLSearchParams({
           returnTo: returnToPath,
         });
@@ -50,7 +45,7 @@ function withPageRequiredAuth(
         let redirectTo = `/${language}/sign-in?${params.toString()}`;
 
         if (user) {
-          redirectTo = `/${language}/projects`;
+          redirectTo = `/${language}/patients`;
         }
 
         router.replace(redirectTo);
@@ -59,11 +54,7 @@ function withPageRequiredAuth(
       check();
     }, [user, isLoaded, router, language]);
 
-    return user &&
-      user?.role?.id &&
-      optionRoles.includes(Number(user?.role.id)) ? (
-      <Component {...props} />
-    ) : null;
+    return user ? <Component {...props} /> : null;
   };
 }
 

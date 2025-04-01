@@ -57,10 +57,32 @@ export function useGetUserService() {
 
   return useCallback(
     (data: UserRequest, requestConfig?: RequestConfigType) => {
-      return fetch(`${API_URL}/v1/users/${data.id}`, {
-        method: "GET",
+      const requestUrl = new URL(`${API_URL}/graphql`);
+
+      const graphqlQuery = {
+        query: `
+          query GetUser($id: String) {
+            user(id: $id) {
+              id
+              firstName
+              lastName
+              fullName
+              email
+              dateOfBirth
+              patientId
+            }
+          }
+        `,
+        variables: {
+          id: data.id,
+        },
+      };
+
+      return fetch(requestUrl, {
+        method: "POST",
+        body: JSON.stringify(graphqlQuery),
         ...requestConfig,
-      }).then(wrapperFetchJsonResponse<UserResponse>);
+      }).then((res) => wrapperFetchJsonResponse<UsersRequest>(res));
     },
     [fetch]
   );

@@ -1,33 +1,25 @@
 "use client";
-import Button from "@mui/material/Button";
-import LinkItem from "@mui/material/Link";
-import withPageRequiredGuest from "@/services/auth/with-page-required-guest";
-import { useForm, FormProvider, useFormState } from "react-hook-form";
+import PathMDIcon from "@/assets/pathmd.png";
+import FormTextInput from "@/components/form/text-input/form-text-input";
+import Link from "@/components/link";
 import { useAuthLoginService } from "@/services/api/services/auth";
+import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
+import { IS_SIGN_UP_ENABLED } from "@/services/auth/config";
 import useAuthActions from "@/services/auth/use-auth-actions";
 import useAuthTokens from "@/services/auth/use-auth-tokens";
-import BackgroundImage from "@/assets/login-bg.svg";
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
-import FormTextInput from "@/components/form/text-input/form-text-input";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import Link from "@/components/link";
-import Box from "@mui/material/Box";
-import HTTP_CODES_ENUM from "@/services/api/types/http-codes";
+import withPageRequiredGuest from "@/services/auth/with-page-required-guest";
 import { useTranslation } from "@/services/i18n/client";
-import SocialAuth from "@/services/social-auth/social-auth";
-import Divider from "@mui/material/Divider";
-import Chip from "@mui/material/Chip";
-import { isGoogleAuthEnabled } from "@/services/social-auth/google/google-config";
-import { isFacebookAuthEnabled } from "@/services/social-auth/facebook/facebook-config";
-import { IS_SIGN_UP_ENABLED } from "@/services/auth/config";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { darken, useTheme } from "@mui/material";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import LinkItem from "@mui/material/Link";
+import Typography from "@mui/material/Typography";
+import jwt from "jsonwebtoken";
 import Image from "next/image";
-
+import { useRouter } from "next/navigation";
+import { FormProvider, useForm, useFormState } from "react-hook-form";
+import * as yup from "yup";
 type SignInFormData = {
   email: string;
   password: string;
@@ -92,8 +84,12 @@ function Form() {
   const { handleSubmit, setError } = methods;
 
   const onSubmit = handleSubmit(async (formData) => {
-    const { data, status } = await fetchAuthLogin(formData);
+    const {
+      response: { data, status },
+      headers,
+    } = await fetchAuthLogin(formData);
 
+    console.log({ data, status, headers });
     if (status === HTTP_CODES_ENUM.UNPROCESSABLE_ENTITY) {
       (Object.keys(data.errors) as Array<keyof SignInFormData>).forEach(
         (key) => {
@@ -110,14 +106,19 @@ function Form() {
     }
 
     if (status === HTTP_CODES_ENUM.OK) {
+      const token = headers["st-access-token"];
+      if (!token) return;
+      const decoded = jwt.decode(token);
+
       setTokensInfo({
-        token: data.token,
-        refreshToken: data.refreshToken,
-        tokenExpires: data.tokenExpires,
+        token: headers["st-access-token"],
+        refreshToken: headers["st-refresh-token"],
+        // @ts-expect-error exp not found
+        tokenExpires: decoded?.exp * 1000,
       });
-      router.replace("/insights");
+      router.replace("/patients");
       setUser(data.user);
-      router.push("/insights");
+      router.push("/patients");
     }
   });
 
@@ -125,7 +126,7 @@ function Form() {
     <FormProvider {...methods}>
       <Box
         sx={{
-          background: theme.palette.primary.main,
+          background: theme.palette.background.default,
           height: "100vh",
           width: "100%",
           display: "flex",
@@ -133,19 +134,27 @@ function Form() {
           margin: 0,
         }}
       >
-        <Box sx={{ width: "50%", height: "100%", position: "relative" }}>
-          <Image
-            src={BackgroundImage}
-            alt="creagh"
-            layout="fill"
-            objectFit="cover"
-            style={{ background: "red" }}
-          />
-        </Box>
-
         <Box
           sx={{
-            width: "50%",
+            width: 700,
+            height: "100%",
+            display: "flex",
+            backgroundColor: theme.palette.primary.main,
+            padding: 6,
+          }}
+        >
+          <Typography
+            variant="h4"
+            fontWeight={600}
+            color={"white"}
+            sx={{ whiteSpace: "pre-line" }}
+          >
+            {t("sign-in:sideText", { 1: <br /> })}
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            width: "100%",
             height: "100%",
             display: "flex",
             justifyContent: "center",
@@ -160,8 +169,7 @@ function Form() {
               alignItems={"center"}
               justifyContent={"center"}
               sx={{
-                background: theme.palette.primary.main,
-                padding: 3,
+                background: theme.palette.background.default,
                 height: "100%",
                 width: "100%",
               }}
@@ -172,11 +180,24 @@ function Form() {
                 flexDirection={"column"}
                 alignItems={"center"}
               >
-                <Typography variant="h4" fontWeight={600} color={"white"}>
+                <Image
+                  src={PathMDIcon}
+                  alt="PathMD"
+                  style={{
+                    width: 194.4,
+                    height: 45.9,
+                    marginLeft: theme.spacing(),
+                    marginRight: theme.spacing(),
+                    marginBottom: theme.spacing(),
+                  }}
+                  objectFit="contain"
+                />
+                <Typography
+                  variant="h5"
+                  fontWeight={600}
+                  sx={{ marginTop: theme.spacing() }}
+                >
                   {t("sign-in:title")}
-                </Typography>
-                <Typography variant="h6" color={"white"} sx={{ mb: 2 }}>
-                  {t("sign-in:description")}
                 </Typography>
               </Box>
               <Box sx={{ width: 500, mb: 1 }}>
@@ -224,7 +245,6 @@ function Form() {
                   href="/forgot-password"
                   data-testid="forgot-password"
                   sx={{
-                    color: "white",
                     mt: 3,
                     textDecorationColor: "white",
                     textDecoration: "underline",
@@ -234,17 +254,14 @@ function Form() {
                 </LinkItem>
                 {IS_SIGN_UP_ENABLED && (
                   <Box ml={1} component="span" sx={{ display: "flex" }}>
-                    <Typography
-                      component={"span"}
-                      sx={{ color: "white", mt: 3, mr: 1 }}
-                    >
+                    <Typography component={"span"} sx={{ mt: 3, mr: 1 }}>
                       {t("sign-in:actions.newUser")}
                     </Typography>
                     <LinkItem
                       component={Link}
                       href="/sign-up"
                       data-testid="sign-up"
-                      sx={{ color: "white", mt: 3 }}
+                      sx={{ mt: 3 }}
                     >
                       <Typography
                         sx={{
