@@ -7,8 +7,17 @@ import { InfinityPaginationType } from "../types/infinity-pagination";
 import { Role } from "../types/role";
 import { SortEnum } from "../types/sort-type";
 import { RequestConfigType } from "./types/request-config";
+import { FileEntity } from "@/services/api/types/file-entity";
 
 export type UsersRequest = {
+  email?: string;
+  firstName?: string;
+  lastName?: string;
+  role?: any;
+  photo?:
+    | FileEntity
+    | { id?: string | undefined; path?: string | undefined }
+    | undefined;
   page: number;
   limit: number;
   filters?: {

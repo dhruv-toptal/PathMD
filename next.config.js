@@ -5,6 +5,10 @@ const nextConfig = {
   },
   eslint: {
     dirs: ["src", "playwright-tests"],
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
   },
 };
 

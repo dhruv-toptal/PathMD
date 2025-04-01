@@ -39,7 +39,7 @@ function reducer(
     metadata: {},
     drawn: {},
   },
-  action
+  action: any
 ) {
   switch (action.type) {
     case "ADDED_IMAGE":
